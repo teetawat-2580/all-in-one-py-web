@@ -367,6 +367,7 @@ export default function PngSlicer() {
         title="Table Slicer"
         description="Slice large image tables, document grids, or tall screenshots into horizontal and vertical row/column cell images with independent draggable lines and margin trimming."
         workInstruction={`1. Click '1. Select Target PNG' to load an image table or grid.\n2. Drag outer corners/edges to resize, drag center to move, or drag INNER lines to align with table gaps.\n3. Adjust Cut Margin (px) to trim line borders, then click 'Preview Cuts' or 'Slice & Save'.`}
+        infographic={{ src: '/infographics/infographic_png_tools.png', title: 'PNG Size Reducer, Margin Trimmer, Table Slicer & Watermark — Before & After' }}
       />
 
       <div className="grid-2" style={{ marginBottom: '20px', gap: '20px' }}>

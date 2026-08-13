@@ -100,6 +100,7 @@ export default function PdfSharpen() {
         title="Sharpen & Enhance"
         description="Enhance document readability by adjusting contrast, brightness, applying sharpening filters, and binarizing scanned PDFs into clean black & white."
         workInstruction={`1. Select PDF Document.\n2. Adjust Contrast and Brightness sliders.\n3. Toggle Sharpen Filter or Black & White Threshold.\n4. Click 'Enhance & Save PDF' to re-encode.`}
+        infographic={{ src: '/infographics/infographic_pdf_split_toolkit.png', title: 'PDF Splitter, Page Toolkit, Sharpen & Optimizer — Before & After' }}
       />
 
       <div className="grid-2" style={{ marginBottom: '20px' }}>

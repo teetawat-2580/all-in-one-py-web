@@ -1,7 +1,8 @@
 import React from 'react';
 import { Info, BookOpen, MapPin } from 'lucide-react';
+import BeforeAfterCard from './BeforeAfterCard';
 
-export default function InfoHeader({ title, description, workInstruction, category = 'pdf' }) {
+export default function InfoHeader({ title, description, workInstruction, category = 'pdf', infographic }) {
   const categoryClasses = {
     pdf: 'wi-card-pdf',
     png: 'wi-card-png',
@@ -16,7 +17,7 @@ export default function InfoHeader({ title, description, workInstruction, catego
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
         <Info size={18} style={{ color: 'var(--accent-active)' }} />
         <h4 style={{ margin: 0, fontSize: '15px', fontWeight: 700 }}>
-          Description & Work Instruction (WI) — {title}
+          Description &amp; Work Instruction (WI) — {title}
         </h4>
       </div>
       
@@ -35,6 +36,15 @@ export default function InfoHeader({ title, description, workInstruction, catego
           {workInstruction}
         </div>
       </div>
+
+      {/* Optional Before/After Infographic */}
+      {infographic && (
+        <BeforeAfterCard
+          imageSrc={infographic.src}
+          imageAlt={infographic.alt || `Before and after: ${title}`}
+          title={infographic.title || 'Before & After Example'}
+        />
+      )}
     </div>
   );
 }

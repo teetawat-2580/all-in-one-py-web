@@ -226,6 +226,7 @@ export default function PdfCoverAdder() {
         title="Advanced Cover Adder"
         description="Prepend a custom front cover page to multiple target PDF documents using an interactive pairing queue and live page preview."
         workInstruction={`1. Click '+ Add Books' to add target PDF documents and '+ Add Covers' to add cover PDFs.\n2. Select a file and click 'Preview' (use << >> to select specific cover pages if multi-page).\n3. Check target book(s) and exactly ONE cover, click '🔗 LINK CHECKED FILES', then click 'GENERATE PAIRED PDFs'.`}
+        infographic={{ src: '/infographics/infographic_pdf_cover_overlay.png', title: 'Cover Adder, Overlay, Vectorizer & Coloring Books — Before & After' }}
       />
 
       {/* Top 3-Column Layout: Books | Preview | Covers */}

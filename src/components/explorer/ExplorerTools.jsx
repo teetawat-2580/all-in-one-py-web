@@ -121,6 +121,7 @@ export default function ExplorerTools() {
         title="File Explorer Filename Extractor"
         description="Batch extract names of selected files or entire folders from File Explorer directly to your clipboard and text files."
         workInstruction={`1. Select or drag & drop files into the input dropzone.\n2. Toggle options (Keep file extension, casing, prefix/suffix, delimiter).\n3. Click 'Copy Filenames to Clipboard' or Export as TXT / CSV / JSON.\n4. Optionally download the Windows Registry script to add right-click context menu integration!`}
+        infographic={{ src: '/infographics/infographic_png_tools.png', title: 'Web & Explorer Tools — Before & After' }}
       />
 
       <div className="grid-2" style={{ marginBottom: '20px' }}>

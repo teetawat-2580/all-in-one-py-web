@@ -236,6 +236,7 @@ export default function PngOverlay() {
         title="Watermark / Overlay PNG"
         description="Overlay watermark/stamp PNG logos onto target PNG images or selected pages of PDF documents (exporting as watermarked PNG images)."
         workInstruction={`1. Choose Source Input Mode: 'PNG File(s)' or 'PDF File(s)'.\n2. Select source files. If PDF, specify page/pages (e.g., 'All', '1-5', '1, 3, 5'), click 'Preview Page(s)', and set rendering DPI.\n3. Select Watermark/Template PNG image and click 'Process Watermark Overlay'.`}
+        infographic={{ src: '/infographics/infographic_png_tools.png', title: 'PNG Size Reducer, Margin Trimmer, Table Slicer & Watermark — Before & After' }}
       />
 
       {/* Step 1: Select Source Type & Source Files */}

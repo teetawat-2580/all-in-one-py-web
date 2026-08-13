@@ -83,6 +83,7 @@ export default function PdfVectorizer() {
         title="Line Art Vectorizer"
         description="Convert raster line art drawings and sketches into resolution-independent SVG vector graphics and scalable vector PDFs."
         workInstruction={`1. Upload a line art image (PNG or JPG).\n2. Adjust Black & White Threshold slider (0 to 255).\n3. Preview vectorized SVG rendering.\n4. Click 'Download SVG Vector' to export.`}
+        infographic={{ src: '/infographics/infographic_pdf_cover_overlay.png', title: 'Cover Adder, Overlay, Vectorizer & Coloring Books — Before & After' }}
       />
 
       <div className="grid-2" style={{ marginBottom: '20px' }}>

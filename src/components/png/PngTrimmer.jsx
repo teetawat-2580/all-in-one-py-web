@@ -155,6 +155,7 @@ export default function PngTrimmer() {
         title="Margin Trimmer & PDF Merger"
         description="Auto-crop white or transparent borders around images with tolerance control, then merge all trimmed images into a single PDF document."
         workInstruction={`1. Click 'Select PNG Images' to import pictures.\n2. Adjust Margin Crop Tolerance (0 to 50) to fine-tune auto-trimming.\n3. Configure target PDF Page Size (Auto, A4, Letter) and Margins.\n4. Click 'Merge Trimmed Images into PDF' to download final document.`}
+        infographic={{ src: '/infographics/infographic_png_tools.png', title: 'PNG Size Reducer, Margin Trimmer, Table Slicer & Watermark — Before & After' }}
       />
 
       <div className="grid-2" style={{ marginBottom: '20px' }}>

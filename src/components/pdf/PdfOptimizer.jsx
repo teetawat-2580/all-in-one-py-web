@@ -64,6 +64,7 @@ export default function PdfOptimizer() {
         title="Size Optimizer"
         description="Compress PDF documents by re-encoding embedded raster images with adjustable JPEG quality and resolution scaling."
         workInstruction={`1. Upload PDF Document.\n2. Adjust JPEG Compression Quality slider (10% - 100%).\n3. Adjust Resolution Scale factor (0.5x to 1.5x).\n4. Click 'Compress & Download PDF'.`}
+        infographic={{ src: '/infographics/infographic_pdf_split_toolkit.png', title: 'PDF Splitter, Page Toolkit, Sharpen & Optimizer — Before & After' }}
       />
 
       <div className="grid-2" style={{ marginBottom: '20px' }}>

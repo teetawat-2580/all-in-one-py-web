@@ -137,6 +137,7 @@ export default function PdfViewer() {
         title="Viewer & Inspector"
         description="Inspect metadata, page counts, page dimensions, and aspect ratio of PDF files, and interactively preview pages."
         workInstruction={`1. Click 'Select PDF File(s)' to import PDF documents into the inspector table.\n2. Select any file row in the list to inspect its size, page count, and aspect ratio.\n3. Click 'Preview Selected PDF' or navigate pages using 'Previous' and 'Next' controls.`}
+        infographic={{ src: '/infographics/infographic_pdf_split_toolkit.png', title: 'PDF Tools — Before & After' }}
       />
 
       <div className="grid-2" style={{ marginBottom: '20px' }}>

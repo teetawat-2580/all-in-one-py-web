@@ -192,6 +192,7 @@ export default function PdfPageToolkit() {
         title="Page Toolkit (Merge / PDF to PNG / Remove / Rotate / Resize)"
         description="Comprehensive toolkit to combine multiple PDFs, export pages to PNG, remove unwanted pages, rotate orientations, and standardize page sizes."
         workInstruction={`1. Choose Action from sub-navigation (Merge, PDF to PNG, Remove Pages, Rotate Pages, Resize Pages).\n2. Import target PDF file(s).\n3. Adjust action-specific settings (DPI, ranges, angles, page size presets).\n4. Click Process action button to download result.`}
+        infographic={{ src: '/infographics/infographic_pdf_split_toolkit.png', title: 'PDF Splitter, Page Toolkit, Sharpen & Optimizer — Before & After' }}
       />
 
       <div className="subtab-nav">

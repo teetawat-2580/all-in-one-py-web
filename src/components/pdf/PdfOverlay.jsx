@@ -211,6 +211,7 @@ export default function PdfOverlay() {
         title="Watermark / Overlay PDF"
         description="Overlay transparent PNG logo watermarks, background templates, or stamps onto all or selected page(s) of PDF documents."
         workInstruction={`1. Click '1. Select Source PDF(s)' to choose target PDF files.\n2. Select page application mode ('All Pages', 'Page Range Expression', or 'Interactive Page Multi-Select').\n3. Click '2. Select Watermark/Template PNG', then click 'Apply PNG Watermark'.`}
+        infographic={{ src: '/infographics/infographic_pdf_cover_overlay.png', title: 'Cover Adder, Overlay, Vectorizer & Coloring Books — Before & After' }}
       />
 
       {/* Step 1: File Selection & Watermark PNG */}

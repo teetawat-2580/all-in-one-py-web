@@ -111,6 +111,7 @@ export default function PdfSplitter() {
         title="PDF Splitter"
         description="Split multi-page PDF documents into individual single-page files, custom page ranges, or fixed chunk sizes."
         workInstruction={`1. Upload a PDF file.\n2. Choose Split Mode (Extract Single Pages, Custom Page Range, or Fixed Chunk Size).\n3. Configure page ranges (e.g., '1-3, 5, 7-10') or chunk sizes (e.g. 5 pages per file).\n4. Click 'Split & Download (.ZIP)' to process.`}
+        infographic={{ src: '/infographics/infographic_pdf_split_toolkit.png', title: 'PDF Splitter, Page Toolkit, Sharpen & Optimizer — Before & After' }}
       />
 
       <div className="grid-2" style={{ marginBottom: '20px' }}>

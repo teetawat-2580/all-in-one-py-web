@@ -130,6 +130,7 @@ export default function PngReducer() {
         title="PNG Size Reducer"
         description="Batch reduce PNG image file sizes by scaling pixel dimensions and adjusting DPI settings while preserving transparent background alpha channels."
         workInstruction={`1. Click 'Select PNG File(s)' to load images.\n2. Select Scale percentage (100% to 10%) and Reduce DPI target (Keep Original, 300, 150, 96, 72).\n3. Switch between 'View Original' and 'View Reduced' to preview estimated file size, then click 'Process & Save All PNG Files'.`}
+        infographic={{ src: '/infographics/infographic_png_tools.png', title: 'PNG Size Reducer, Margin Trimmer, Table Slicer & Watermark — Before & After' }}
       />
 
       <div className="grid-2" style={{ marginBottom: '20px' }}>

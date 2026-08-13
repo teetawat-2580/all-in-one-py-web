@@ -387,6 +387,7 @@ export default function PdfColoringBooks() {
         title="Coloring books 20 pages"
         description="Batch process coloring book page PNGs with live preview, per-page scaling/sizing adjustments, main watermark overlay across all pages, PDF compilation at selective DPI, and sample page PNG export."
         workInstruction={`1. Click '1. Select PNGs' to load your coloring book page images.\n2. Select '2. Main Watermark PNG' (applied to all pages) and '3. Sample Watermark PNG' (for single sample page export).\n3. Use the Left Page List & Controls to adjust image scale/margins.\n4. Preview rendered pages on the Right Live Canvas.\n5. Click 'Export Pages as PDF' or 'Export Single Page as Sample PNG'.`}
+        infographic={{ src: '/infographics/infographic_pdf_cover_overlay.png', title: 'Cover Adder, Overlay, Vectorizer & Coloring Books — Before & After' }}
       />
 
       {/* Top: File & Watermark Selection */}
