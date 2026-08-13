@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import InfoHeader from '../common/InfoHeader';
-import { Copy, Check, ExternalLink, Globe, Database, FileText, Download, Play } from 'lucide-react';
+import { Copy, Check, ExternalLink, Globe, Database, FileText, Download, Play, Image, Info } from 'lucide-react';
 
 const GOOGLE_DRIVE_JS = `(async function() {
     // 1. Broadly search for any element containing a data-id
@@ -113,6 +113,79 @@ const FIREBASE_STORAGE_JS = `(async function() {
     }
 })();`;
 
+const NATIVE_BATCH_DOWNLOAD_JS = `async function prepareNativeBatchDownload() {
+    let userInput = prompt("How many pictures do you want to extract?", "10");
+    let total = parseInt(userInput);
+    
+    if (isNaN(total) || total <= 0) return;
+
+    let thumbnails = document.querySelectorAll('div.thumbnail-overlay');
+    let highResUrls = [];
+    
+    console.log(\`🚀 Extracting \${total} links. Please do not click anything...\`);
+
+    // 1. Loop through and grab the high-resolution source links
+    for (let i = 0; i < total && i < thumbnails.length; i++) {
+        console.log(\`Extracting link for picture \${i + 1}...\`);
+        thumbnails[i].click();
+        
+        await new Promise(resolve => setTimeout(resolve, 2500));
+        
+        let allImages = Array.from(document.querySelectorAll('img'));
+        let fullImage = allImages.sort((a, b) => (b.width * b.height) - (a.width * a.height))[0];
+
+        if (fullImage && fullImage.src) {
+            highResUrls.push(fullImage.src);
+        }
+
+        let closeBtn = document.querySelector('button[aria-label="Back"], button[mattooltip="Back"], button[aria-label="Close"]');
+        if (closeBtn) closeBtn.click();
+        else document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape', keyCode: 27, bubbles: true }));
+        
+        await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+    
+    console.log("✅ Links collected! Transforming the page for Native Download...");
+
+    // 2. Safely wipe the entire webpage and change the background to dark gray
+    document.body.innerText = '';
+    document.body.style.backgroundColor = '#1e1e1e';
+    document.body.style.color = '#ffffff';
+    document.body.style.textAlign = 'center';
+    document.body.style.padding = '50px';
+    document.body.style.overflowY = 'scroll';
+
+    // 3. Build the instructions securely (bypassing TrustedHTML errors)
+    let h1 = document.createElement('h1');
+    h1.innerText = '✅ Images Ready for Batch Download!';
+    document.body.appendChild(h1);
+
+    let h2 = document.createElement('h2');
+    h2.innerText = 'Press Ctrl + S on your keyboard right now.';
+    h2.style.color = '#4CAF50';
+    document.body.appendChild(h2);
+
+    let p = document.createElement('p');
+    p.innerText = 'When the save window opens, ensure "Save as type" is set to "Webpage, Complete". \\nEdge will save an HTML file AND create a folder containing all of your JPG image files!';
+    document.body.appendChild(p);
+
+    let hr = document.createElement('hr');
+    document.body.appendChild(hr);
+
+    // 4. Inject only the high-resolution images back onto the screen
+    highResUrls.forEach(url => {
+        let img = document.createElement('img');
+        img.src = url;
+        img.style.maxWidth = '80%';
+        img.style.margin = '20px auto';
+        img.style.border = '2px solid #555';
+        img.style.display = 'block';
+        document.body.appendChild(img);
+    });
+}
+
+prepareNativeBatchDownload();`;
+
 export default function WebTools() {
   const [activeTab, setActiveTab] = useState('gdrive');
   const [copied, setCopied] = useState(false);
@@ -131,7 +204,6 @@ export default function WebTools() {
     const results = [];
 
     if (activeTab === 'gdrive') {
-      // Regexp for drive file IDs or URLs
       const driveRegex = /(?:id=|[a-zA-Z0-9_-]{25,})/g;
       const matches = pasteInput.match(driveRegex) || [];
       const unique = Array.from(new Set(matches));
@@ -144,7 +216,6 @@ export default function WebTools() {
         }
       });
     } else {
-      // Regexp for firebase storage URLs
       const fbRegex = /https:\/\/firebasestorage\.googleapis\.com\/v0\/b\/[^\s"'>]+/g;
       const matches = pasteInput.match(fbRegex) || [];
       const unique = Array.from(new Set(matches));
@@ -186,6 +257,12 @@ export default function WebTools() {
           onClick={() => { setActiveTab('firebase'); setExtractedList([]); }}
         >
           <Database size={16} /> Firebase Storage Link Extractor
+        </button>
+        <button
+          className={`subtab-btn ${activeTab === 'native_batch' ? 'active' : ''}`}
+          onClick={() => { setActiveTab('native_batch'); setExtractedList([]); }}
+        >
+          <Image size={16} /> Native Batch Image Extractor & Downloader
         </button>
       </div>
 
@@ -257,70 +334,119 @@ export default function WebTools() {
         </div>
       )}
 
-      {/* Online Link Parser / Simulator */}
-      <div className="glass-panel" style={{ padding: '20px' }}>
-        <h3 style={{ margin: '0 0 12px 0', fontSize: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Play size={18} style={{ color: '#a78bfa' }} /> Online Page Source & Text Link Parser
-        </h3>
-        <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '12px' }}>
-          Paste raw HTML source code or text copied from {activeTab === 'gdrive' ? 'Google Drive' : 'Firebase Storage'} to extract links directly inside this web tool:
-        </p>
+      {activeTab === 'native_batch' && (
+        <div>
+          <InfoHeader
+            category="web"
+            title="Native Batch Image Extractor & Downloader"
+            description="Automated browser JavaScript snippet to extract high-resolution image links from thumbnail overlays on web galleries, replace the DOM with full-res images, and leverage browser native Ctrl+S ('Webpage, Complete') batch saving."
+            workInstruction={`1. Click '📋 Copy Native Batch Downloader JS Snippet to Clipboard'.\n2. Open the web page containing thumbnail overlays ('div.thumbnail-overlay') in your browser (Chrome/Edge/Firefox).\n3. Press F12 to open Developer Console, paste the script into the Console tab, and press Enter.\n4. Enter the desired number of pictures when prompted (e.g. 10) and let the automated script run.\n5. Once the dark screen appears with your images, press Ctrl + S and choose 'Webpage, Complete' to save all JPG image files into a single local folder!`}
+          />
 
-        <textarea
-          className="form-textarea"
-          rows={5}
-          placeholder={`Paste ${activeTab === 'gdrive' ? 'Google Drive HTML / text' : 'Firebase console storage text'} here...`}
-          value={pasteInput}
-          onChange={(e) => setPasteInput(e.target.value)}
-        />
+          <div className="glass-panel" style={{ padding: '20px', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+              <h3 style={{ margin: 0, fontSize: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Image size={18} style={{ color: '#fbbf24' }} /> Native Batch Image Extractor & Downloader JS Snippet
+              </h3>
+              <button
+                className="btn btn-success"
+                onClick={() => copySnippet(NATIVE_BATCH_DOWNLOAD_JS)}
+              >
+                {copied ? <Check size={16} /> : <Copy size={16} />}
+                {copied ? 'Copied to Clipboard!' : '📋 Copy Native Batch Downloader JS Snippet'}
+              </button>
+            </div>
 
-        <div style={{ display: 'flex', gap: '10px', marginTop: '12px' }}>
-          <button className="btn btn-primary" onClick={parsePastedContent}>
-            🔍 Parse & Extract Links
-          </button>
-          {extractedList.length > 0 && (
-            <button className="btn btn-success" onClick={exportTSV}>
-              <Download size={16} /> Export Extracted Links (.txt)
+            <textarea
+              className="form-textarea"
+              rows={15}
+              value={NATIVE_BATCH_DOWNLOAD_JS}
+              readOnly
+              style={{ background: '#090d16', color: '#fde68a' }}
+            />
+          </div>
+
+          {/* Explanation Card */}
+          <div className="glass-panel" style={{ padding: '20px', marginBottom: '20px', borderLeft: '4px solid #fbbf24' }}>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '15px', color: '#fbbf24', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Info size={18} /> How It Works & Key Notes
+            </h4>
+            <ul style={{ paddingLeft: '20px', fontSize: '13px', color: '#cbd5e1', lineHeight: '1.6' }}>
+              <li><strong>Automated Extraction:</strong> Loops through elements with class <code>div.thumbnail-overlay</code>, clicks each one automatically, waits for the modal/full image to render, and selects the largest <code>&lt;img&gt;</code> element on the screen.</li>
+              <li><strong>Auto-Close Modals:</strong> Closes image modal dialogs automatically by clicking back/close buttons or sending synthetic <code>Escape</code> keypress events.</li>
+              <li><strong>Clean Screen Transformation:</strong> Once all links are gathered, it wipes the web page DOM (<code>document.body.innerText = ''</code>), sets a sleek dark background (<code>#1e1e1e</code>), and embeds all high-res image elements onto the page.</li>
+              <li><strong>Browser Native Batch Saving (Ctrl + S):</strong> Instead of downloading images one-by-one or triggering blocked popup windows, pressing <code>Ctrl + S</code> in Chrome/Edge/Firefox with <em>"Webpage, Complete"</em> saves all images simultaneously into a single local folder on your computer!</li>
+            </ul>
+          </div>
+        </div>
+      )}
+
+      {/* Online Link Parser / Simulator (for gdrive and firebase) */}
+      {activeTab !== 'native_batch' && (
+        <div className="glass-panel" style={{ padding: '20px' }}>
+          <h3 style={{ margin: '0 0 12px 0', fontSize: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Play size={18} style={{ color: '#a78bfa' }} /> Online Page Source & Text Link Parser
+          </h3>
+          <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '12px' }}>
+            Paste raw HTML source code or text copied from {activeTab === 'gdrive' ? 'Google Drive' : 'Firebase Storage'} to extract links directly inside this web tool:
+          </p>
+
+          <textarea
+            className="form-textarea"
+            rows={5}
+            placeholder={`Paste ${activeTab === 'gdrive' ? 'Google Drive HTML / text' : 'Firebase console storage text'} here...`}
+            value={pasteInput}
+            onChange={(e) => setPasteInput(e.target.value)}
+          />
+
+          <div style={{ display: 'flex', gap: '10px', marginTop: '12px' }}>
+            <button className="btn btn-primary" onClick={parsePastedContent}>
+              🔍 Parse & Extract Links
             </button>
+            {extractedList.length > 0 && (
+              <button className="btn btn-success" onClick={exportTSV}>
+                <Download size={16} /> Export Extracted Links (.txt)
+              </button>
+            )}
+          </div>
+
+          {extractedList.length > 0 && (
+            <div style={{ marginTop: '20px' }}>
+              <h4 style={{ marginBottom: '10px', fontSize: '14px', color: '#34d399' }}>
+                Extracted {extractedList.length} Link(s):
+              </h4>
+              <div style={{ maxHeight: '250px', overflowY: 'auto' }}>
+                <table className="custom-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>File Name</th>
+                      <th>Extracted URL</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {extractedList.map((item, i) => (
+                      <tr key={i}>
+                        <td>{i + 1}</td>
+                        <td>{item.name}</td>
+                        <td style={{ fontFamily: 'monospace', fontSize: '12px', wordBreak: 'break-all', color: '#60a5fa' }}>
+                          {item.url}
+                        </td>
+                        <td>
+                          <a href={item.url} target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-sm">
+                            <ExternalLink size={12} /> Open
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           )}
         </div>
-
-        {extractedList.length > 0 && (
-          <div style={{ marginTop: '20px' }}>
-            <h4 style={{ marginBottom: '10px', fontSize: '14px', color: '#34d399' }}>
-              Extracted {extractedList.length} Link(s):
-            </h4>
-            <div style={{ maxHeight: '250px', overflowY: 'auto' }}>
-              <table className="custom-table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>File Name</th>
-                    <th>Extracted URL</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {extractedList.map((item, i) => (
-                    <tr key={i}>
-                      <td>{i + 1}</td>
-                      <td>{item.name}</td>
-                      <td style={{ fontFamily: 'monospace', fontSize: '12px', wordBreak: 'break-all', color: '#60a5fa' }}>
-                        {item.url}
-                      </td>
-                      <td>
-                        <a href={item.url} target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-sm">
-                          <ExternalLink size={12} /> Open
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 }
