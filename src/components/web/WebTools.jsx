@@ -207,7 +207,7 @@ const CHATGPT_BATCH_DOWNLOAD_JS = `async function prepareChatGPTBatchDownload() 
         );
     });
 
-    let imageCards = Array.from(document.querySelectorAll('a[href*="/images/"], div[role="button"][class*="image"], div[data-testid*="image-card"], div.grid img, [class*="aspect-"] img'));
+    let imageCards = Array.from(document.querySelectorAll('a[href*="/library"], a[href*="tab=images"], a[href*="/images/"], div[role="button"][class*="image"], div[data-testid*="image-card"], div.grid img, [class*="aspect-"] img'));
     let highResUrls = new Set();
     let clickTargets = imageCards.length > 0 ? imageCards : imgElements;
     
@@ -538,8 +538,8 @@ export default function WebTools() {
           <InfoHeader
             category="web"
             title="ChatGPT Web Batch Image Extractor & Downloader"
-            description="Automated browser JavaScript snippet to extract high-resolution generated image links directly from ChatGPT web gallery (https://chatgpt.com/images) or chat conversations, replace the DOM with high-res images, and trigger browser native Ctrl+S ('Webpage, Complete') batch download."
-            workInstruction={`1. Click '📋 Copy ChatGPT Web JS Snippet to Clipboard'.\n2. Open ChatGPT image gallery (https://chatgpt.com/images) or your ChatGPT conversation in Chrome/Edge/Firefox.\n3. Press F12 to open Developer Console, paste the script into the Console tab, and press Enter.\n4. Enter the desired number of pictures when prompted (e.g. 20) and allow the automated script to collect high-res URLs.\n5. Once the dark screen appears with your images, press Ctrl + S and select 'Webpage, Complete' to save all PNG/JPG image files into a single local folder!`}
+            description="Automated browser JavaScript snippet to extract high-resolution generated image links directly from ChatGPT web gallery (https://chatgpt.com/library?tab=images) or chat conversations, replace the DOM with high-res images, and trigger browser native Ctrl+S ('Webpage, Complete') batch download."
+            workInstruction={`1. Click '📋 Copy ChatGPT Web JS Snippet to Clipboard'.\n2. Open ChatGPT image library (https://chatgpt.com/library?tab=images) or your ChatGPT conversation in Chrome/Edge/Firefox.\n3. Press F12 to open Developer Console, paste the script into the Console tab, and press Enter.\n4. Enter the desired number of pictures when prompted (e.g. 20) and allow the automated script to collect high-res URLs.\n5. Once the dark screen appears with your images, press Ctrl + S and select 'Webpage, Complete' to save all PNG/JPG image files into a single local folder!`}
           />
 
           <div className="glass-panel" style={{ padding: '20px', marginBottom: '20px' }}>
@@ -571,7 +571,7 @@ export default function WebTools() {
               <Info size={18} /> How ChatGPT Image Extraction Works
             </h4>
             <ul style={{ paddingLeft: '20px', fontSize: '13px', color: '#cbd5e1', lineHeight: '1.6' }}>
-              <li><strong>Target Platform:</strong> Designed specifically for <code>https://chatgpt.com/images</code> and ChatGPT chat conversations with generated images (DALL-E 3).</li>
+              <li><strong>Target Platform:</strong> Designed specifically for <code>https://chatgpt.com/library?tab=images</code> and ChatGPT chat conversations with generated images (DALL-E 3).</li>
               <li><strong>Smart Selection & Extraction:</strong> Automatically scans for <code>files.oaiusercontent.com</code> images, gallery cards, and lightbox previews to capture maximum resolution source URLs.</li>
               <li><strong>DOM Transformation:</strong> Clears the current page markup, sets a dark background theme, and embeds all high-res image elements cleanly on screen.</li>
               <li><strong>Browser Native Download (Ctrl + S):</strong> Pressing <code>Ctrl + S</code> in Chrome, Edge, or Firefox and choosing <em>"Webpage, Complete"</em> saves all images simultaneously into one local folder on your computer.</li>
