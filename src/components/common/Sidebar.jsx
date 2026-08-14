@@ -5,7 +5,7 @@ export default function Sidebar({ activeCategory, setActiveCategory }) {
   const categories = [
     { id: 'pdf', label: '📄 PDF Tools', icon: FileText, badge: '9 Tools', badgeClass: 'badge-pdf' },
     { id: 'png', label: '🖼️ PNG Tools', icon: Image, badge: '4 Tools', badgeClass: 'badge-png' },
-    { id: 'web', label: '🌐 Web Tools', icon: Globe, badge: '3 Tools', badgeClass: 'badge-web' },
+    { id: 'web', label: '🌐 Web Tools', icon: Globe, badge: '4 Tools', badgeClass: 'badge-web' },
     { id: 'explorer', label: '📁 Explorer Tools', icon: Folder, badge: '1 Tool', badgeClass: 'badge-explorer' },
   ];
 
