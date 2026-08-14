@@ -492,7 +492,7 @@ export default function WebTools() {
             category="web"
             title="Native Batch Image Extractor & Downloader"
             description="Automated browser JavaScript snippet to extract high-resolution image links from thumbnail overlays on web galleries, replace the DOM with full-res images, and leverage browser native Ctrl+S ('Webpage, Complete') batch saving."
-            workInstruction={`1. Click '📋 Copy Native Batch Downloader JS Snippet to Clipboard'.\n2. Open the web page containing thumbnail overlays ('div.thumbnail-overlay') in your browser (Chrome/Edge/Firefox).\n3. Press F12 to open Developer Console, paste the script into the Console tab, and press Enter.\n4. Enter the desired number of pictures when prompted (e.g. 10) and let the automated script run.\n5. Once the dark screen appears with your images, press Ctrl + S and choose 'Webpage, Complete' to save all JPG image files into a single local folder!`}
+            workInstruction={`1. Click '📋 Copy Native Batch Downloader JS Snippet to Clipboard'.\n2. Open the web page containing thumbnail overlays ('div.thumbnail-overlay') in your browser (Chrome/Edge/Firefox).\n3. Press F12 to open Developer Console in a separated / undocked window, paste the script into the Console tab, and press Enter.\n4. Enter the desired number of pictures when prompted (e.g. 10) and let the automated script run.\n5. Once the dark screen appears with your images, press Ctrl + S and choose 'Webpage, Complete' to save all JPG image files into a single local folder!`}
           />
 
           <div className="glass-panel" style={{ padding: '20px', marginBottom: '20px' }}>
@@ -524,6 +524,7 @@ export default function WebTools() {
               <Info size={18} /> How It Works & Key Notes
             </h4>
             <ul style={{ paddingLeft: '20px', fontSize: '13px', color: '#cbd5e1', lineHeight: '1.6' }}>
+              <li><strong>DevTools Window Tip:</strong> Open Developer Tools (F12) in a <strong>separated / undocked window</strong> (via DevTools settings menu) so it doesn't obscure or shrink the webpage view.</li>
               <li><strong>Automated Extraction:</strong> Loops through elements with class <code>div.thumbnail-overlay</code>, clicks each one automatically, waits for the modal/full image to render, and selects the largest <code>&lt;img&gt;</code> element on the screen.</li>
               <li><strong>Auto-Close Modals:</strong> Closes image modal dialogs automatically by clicking back/close buttons or sending synthetic <code>Escape</code> keypress events.</li>
               <li><strong>Clean Screen Transformation:</strong> Once all links are gathered, it wipes the web page DOM (<code>document.body.innerText = ''</code>), sets a sleek dark background (<code>#1e1e1e</code>), and embeds all high-res image elements onto the page.</li>
@@ -539,7 +540,7 @@ export default function WebTools() {
             category="web"
             title="ChatGPT Web Batch Image Extractor & Downloader"
             description="Automated browser JavaScript snippet to extract high-resolution generated image links directly from ChatGPT web gallery (https://chatgpt.com/library?tab=images) or chat conversations, replace the DOM with high-res images, and trigger browser native Ctrl+S ('Webpage, Complete') batch download."
-            workInstruction={`1. Click '📋 Copy ChatGPT Web JS Snippet to Clipboard'.\n2. Open ChatGPT image library (https://chatgpt.com/library?tab=images) or your ChatGPT conversation in Chrome/Edge/Firefox, and change the view to Grid View first.\n3. Press F12 to open Developer Console, paste the script into the Console tab, and press Enter.\n4. Enter the desired number of pictures when prompted (e.g. 20) and allow the automated script to collect high-res URLs.\n5. Once the dark screen appears with your images, press Ctrl + S and select 'Webpage, Complete' to save all PNG/JPG image files into a single local folder!`}
+            workInstruction={`1. Click '📋 Copy ChatGPT Web JS Snippet to Clipboard'.\n2. Open ChatGPT image library (https://chatgpt.com/library?tab=images) or your ChatGPT conversation in Chrome/Edge/Firefox, and change the view to Grid View first.\n3. Press F12 to open Developer Console in a separated / undocked window, paste the script into the Console tab, and press Enter.\n4. Enter the desired number of pictures when prompted (e.g. 20) and allow the automated script to collect high-res URLs.\n5. Once the dark screen appears with your images, press Ctrl + S and select 'Webpage, Complete' to save all PNG/JPG image files into a single local folder!`}
           />
 
           <div className="glass-panel" style={{ padding: '20px', marginBottom: '20px' }}>
@@ -572,6 +573,7 @@ export default function WebTools() {
             </h4>
             <ul style={{ paddingLeft: '20px', fontSize: '13px', color: '#cbd5e1', lineHeight: '1.6' }}>
               <li><strong>Target Platform:</strong> Designed specifically for <code>https://chatgpt.com/library?tab=images</code> and ChatGPT chat conversations with generated images (DALL-E 3).</li>
+              <li><strong>DevTools Window Tip:</strong> Open Developer Tools (F12) in a <strong>separated / undocked window</strong> (via DevTools menu: Undock into separate window) so it doesn't shrink or cover page elements.</li>
               <li><strong>Important Note:</strong> Before running the JS snippet on <code>https://chatgpt.com/library?tab=images</code>, change the layout view to <strong>Grid View</strong> first so thumbnail cards are visible.</li>
               <li><strong>Smart Selection & Extraction:</strong> Automatically scans for <code>files.oaiusercontent.com</code> images, gallery cards, and lightbox previews to capture maximum resolution source URLs.</li>
               <li><strong>DOM Transformation:</strong> Clears the current page markup, sets a dark background theme, and embeds all high-res image elements cleanly on screen.</li>
